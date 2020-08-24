@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
@@ -334,9 +334,9 @@ namespace Acklann.Plaid
                             Source = url,
                         };
                     }
-#if DEBUG
+
                     result.RawJsonForDebugging = json;
-#endif
+
                     return result;
                 }
             }
