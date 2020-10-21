@@ -101,6 +101,16 @@ namespace Acklann.Plaid
         }
 
         /// <summary>
+        /// Resets a Link link_token.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task<Sandbox.ResetLinkTokenResponse> ResetLinkToken(Sandbox.ResetLinkTokenRequest request)
+        {
+            return PostAsync<Sandbox.ResetLinkTokenResponse>("/sandbox/item/reset_login", request);
+        }
+
+        /// <summary>
         /// Exchanges a Link public_token for an API access_token.
         /// </summary>
         /// <param name="request">The request.</param>
