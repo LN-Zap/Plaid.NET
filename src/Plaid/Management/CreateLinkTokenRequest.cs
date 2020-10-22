@@ -82,7 +82,7 @@ namespace Acklann.Plaid.Management
         /// </summary>
         /// <value>The account filters.</value>
         [JsonProperty("account_filters")]
-        public Dictionary<string, List<string>> AccountFilters { get; set; }
+        public Dictionary<string, object> AccountFilters { get; set; }
 
         /// <summary>
         /// Gets or sets the access_token.
