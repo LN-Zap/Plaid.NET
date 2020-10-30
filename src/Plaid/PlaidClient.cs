@@ -84,10 +84,20 @@ namespace Acklann.Plaid
         /// Exchanges a Link public_token for an API access_token.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns>Task&lt;Management.ExchangeTokenResponse&gt;.</returns>
+        /// <returns>Task&lt;Management.CreatePublicTokenResponse&gt;.</returns>
         public Task<Management.CreatePublicTokenResponse> CreatePublicTokenAsync(Management.CreatePublicTokenRequest request)
         {
             return PostAsync<Management.CreatePublicTokenResponse>("item/public_token/create", request);
+        }
+
+        /// <summary>
+        /// Exchanges an access_token for an API Processor_token.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>Task&lt;Management.CreateProcessorTokenResponse&gt;.</returns>
+        public Task<Management.CreateProcessorTokenResponse> CreateProcessorTokenAsync(Management.CreateProcessorTokenRequest request)
+        {
+            return PostAsync<Management.CreateProcessorTokenResponse>("processor/token/create", request);
         }
 
         /// <summary>
