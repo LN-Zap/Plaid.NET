@@ -1,4 +1,6 @@
-﻿namespace Acklann.Plaid.Balance
+﻿using Newtonsoft.Json;
+
+namespace Acklann.Plaid.Balance
 {
     /// <summary>
     /// Represents a request for plaid's '/accounts/balance/get' endpoint. The POST /accounts/balance/get endpoint returns the real-time balance for each of an Item’s accounts. It can be used for existing Items that were added via any of Plaid’s other products.
@@ -11,18 +13,23 @@
         /// Gets or sets the options.
         /// </summary>
         /// <value>The options.</value>
-        public Settings Options { get; set; }
+        [JsonProperty("options")]
+        public GetBalanceOptions Options { get; set; }
+    }
 
+    /// <summary>
+    /// The container object for options associated with a GetBalanceRequest.
+    /// </summary>
+    /// <remarks>
+    /// This is outside the GetBalanceRequest class because it is required to build the request.
+    /// </remarks>
+    public class GetBalanceOptions
+    {
         /// <summary>
-        /// <see cref="GetBalanceRequest"/> Settings.
+        /// Gets or sets the account ids. Note: An error will be returned if a provided account_id is not associated with the <see cref="Entity.Item"/>.
         /// </summary>
-        public class Settings
-        {
-            /// <summary>
-            /// Gets or sets the account ids. Note: An error will be returned if a provided account_id is not associated with the <see cref="Entity.Item"/>.
-            /// </summary>
-            /// <value>The account ids.</value>
-            public string[] AccountIds { get; set; }
-        }
+        /// <value>The account ids.</value>
+        [JsonProperty("account_ids")]
+        public string[] AccountIds { get; set; }
     }
 }
