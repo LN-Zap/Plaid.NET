@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Serilog;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -16,7 +15,7 @@ namespace Acklann.Plaid
         /// <summary>
         /// Initializes a new instance of the <see cref="PlaidClient"/> class.
         /// </summary>
-        public PlaidClient(ILogger logger = null) : this(null, null, null, Plaid.Environment.Production, logger: logger)
+        public PlaidClient() : this(null, null, null, Plaid.Environment.Production)
         {
         }
 
@@ -24,7 +23,7 @@ namespace Acklann.Plaid
         /// Initializes a new instance of the <see cref="PlaidClient"/> class.
         /// </summary>
         /// <param name="environment">The environment.</param>
-        public PlaidClient(Plaid.Environment environment, ILogger logger = null) : this(null, null, null, environment, logger: logger)
+        public PlaidClient(Plaid.Environment environment) : this(null, null, null, environment)
         {
         }
 
@@ -40,15 +39,13 @@ namespace Acklann.Plaid
                            string secret,
                            string accessToken,
                            Plaid.Environment environment = Plaid.Environment.Production,
-                           string apiVersion = "2019-05-29",
-                           ILogger logger = null)
+                           string apiVersion = "2019-05-29")
         {
             _secret = secret;
             _clientId = clientId;
             _accessToken = accessToken;
             _environment = environment;
             _apiVersion = apiVersion;
-            _logger = logger;
         }
 
         /* Item Management */
@@ -369,14 +366,13 @@ namespace Acklann.Plaid
 
         private readonly Plaid.Environment _environment;
         private readonly string _clientId, _secret, _accessToken, _apiVersion;
-        private readonly ILogger _logger;
 
         private static HttpContent Body(string json)
         {
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        private void Log(string message, string title = "RESPONSE")
+        protected virtual void Log(string message, string title = "RESPONSE")
         {
 #if DEBUG
             var line = string.Concat(System.Linq.Enumerable.Repeat('-', 100));
@@ -385,13 +381,6 @@ namespace Acklann.Plaid
             System.Diagnostics.Debug.WriteLine(line.Substring(0, n).Insert(5, $" {title} "));
             System.Diagnostics.Debug.WriteLine(message);
 #endif
-            if (_logger != null) {
-                var toLog = title + ": " + message;
-                toLog = PlaidClientUtil.MaskJsonKey(toLog, "secret");
-                toLog = PlaidClientUtil.MaskJsonKey(toLog, "link_token");
-                toLog = PlaidClientUtil.MaskJsonKey(toLog, "access_token");
-                _logger.Debug(toLog);
-            }
         }
 
         private void EnsureCredentials(object request)
