@@ -372,7 +372,7 @@ namespace Acklann.Plaid
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        private static void Log(string message, string title = "RESPONSE")
+        protected virtual void Log(string message, string title = "RESPONSE")
         {
 #if DEBUG
             var line = string.Concat(System.Linq.Enumerable.Repeat('-', 100));
