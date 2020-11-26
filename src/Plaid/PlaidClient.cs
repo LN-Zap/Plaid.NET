@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Serilog;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -15,7 +16,7 @@ namespace Acklann.Plaid
         /// <summary>
         /// Initializes a new instance of the <see cref="PlaidClient"/> class.
         /// </summary>
-        public PlaidClient() : this(null, null, null, Plaid.Environment.Production)
+        public PlaidClient(ILogger logger = null) : this(null, null, null, Plaid.Environment.Production, logger: logger)
         {
         }
 
@@ -23,7 +24,7 @@ namespace Acklann.Plaid
         /// Initializes a new instance of the <see cref="PlaidClient"/> class.
         /// </summary>
         /// <param name="environment">The environment.</param>
-        public PlaidClient(Plaid.Environment environment) : this(null, null, null, environment)
+        public PlaidClient(Plaid.Environment environment, ILogger logger = null) : this(null, null, null, environment, logger: logger)
         {
         }
 
@@ -39,13 +40,15 @@ namespace Acklann.Plaid
                            string secret,
                            string accessToken,
                            Plaid.Environment environment = Plaid.Environment.Production,
-                           string apiVersion = "2019-05-29")
+                           string apiVersion = "2019-05-29",
+                           ILogger logger = null)
         {
             _secret = secret;
             _clientId = clientId;
             _accessToken = accessToken;
             _environment = environment;
             _apiVersion = apiVersion;
+            _logger = logger;
         }
 
         /* Item Management */
@@ -366,13 +369,14 @@ namespace Acklann.Plaid
 
         private readonly Plaid.Environment _environment;
         private readonly string _clientId, _secret, _accessToken, _apiVersion;
+        private readonly ILogger _logger;
 
         private static HttpContent Body(string json)
         {
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        private static void Log(string message, string title = "RESPONSE")
+        private void Log(string message, string title = "RESPONSE")
         {
 #if DEBUG
             var line = string.Concat(System.Linq.Enumerable.Repeat('-', 100));
@@ -381,6 +385,12 @@ namespace Acklann.Plaid
             System.Diagnostics.Debug.WriteLine(line.Substring(0, n).Insert(5, $" {title} "));
             System.Diagnostics.Debug.WriteLine(message);
 #endif
+            if (_logger != null) {
+                var toLog = title + ": " + message;
+                toLog = PlaidClientUtil.MaskJsonKey(toLog, "secret");
+                toLog = PlaidClientUtil.MaskJsonKey(toLog, "link_token");
+                _logger.Debug(toLog);
+            }
         }
 
         private void EnsureCredentials(object request)
@@ -394,5 +404,35 @@ namespace Acklann.Plaid
         }
 
         #endregion Private Members
+    }
+
+    public class PlaidClientUtil {
+        public static string MaskJsonKey(string str, string keyToMask) {
+            keyToMask = $"{keyToMask}\": \"";
+            return MaskStringStarts(str, keyToMask);
+        }
+
+        public static string MaskStringStarts(string str, string matchStr, string breakerChar = "\"") {
+            var startIndex = str.IndexOf(matchStr, StringComparison.OrdinalIgnoreCase);
+            if (startIndex >= 0) {
+                startIndex += matchStr.Length;
+                var endIndex = str.IndexOf(breakerChar, startIndex, StringComparison.OrdinalIgnoreCase);
+
+                var replacingString = str.Slice(startIndex,endIndex);
+                return str.Replace(matchStr + replacingString, matchStr + "***");
+            }
+
+            return str;
+        }
+    }
+
+    public static class PlaidClientExt {
+        public static string Slice(this string source, int start, int end) {
+            if (end < 0) {
+                end = source.Length + end;
+            }
+            int len = end - start;
+            return source.Substring(start, len);
+        }
     }
 }
