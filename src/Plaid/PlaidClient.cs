@@ -389,6 +389,7 @@ namespace Acklann.Plaid
                 var toLog = title + ": " + message;
                 toLog = PlaidClientUtil.MaskJsonKey(toLog, "secret");
                 toLog = PlaidClientUtil.MaskJsonKey(toLog, "link_token");
+                toLog = PlaidClientUtil.MaskJsonKey(toLog, "access_token");
                 _logger.Debug(toLog);
             }
         }
