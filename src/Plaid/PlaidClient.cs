@@ -395,34 +395,4 @@ namespace Acklann.Plaid
 
         #endregion Private Members
     }
-
-    public class PlaidClientUtil {
-        public static string MaskJsonKey(string str, string keyToMask) {
-            keyToMask = $"{keyToMask}\": \"";
-            return MaskStringStarts(str, keyToMask);
-        }
-
-        public static string MaskStringStarts(string str, string matchStr, string breakerChar = "\"") {
-            var startIndex = str.IndexOf(matchStr, StringComparison.OrdinalIgnoreCase);
-            if (startIndex >= 0) {
-                startIndex += matchStr.Length;
-                var endIndex = str.IndexOf(breakerChar, startIndex, StringComparison.OrdinalIgnoreCase);
-
-                var replacingString = str.Slice(startIndex,endIndex);
-                return str.Replace(matchStr + replacingString, matchStr + "***");
-            }
-
-            return str;
-        }
-    }
-
-    public static class PlaidClientExt {
-        public static string Slice(this string source, int start, int end) {
-            if (end < 0) {
-                end = source.Length + end;
-            }
-            int len = end - start;
-            return source.Substring(start, len);
-        }
-    }
 }
