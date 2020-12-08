@@ -364,16 +364,14 @@ namespace Acklann.Plaid
 			body.Headers.Add("Plaid-Version", _apiVersion);
 
 			WriteToDebugger(requestData, $"POST: '{endpoint}'");
-			_logger?.LogTrace("Sent http request. POST: {0}\r\n{1}", endpoint, requestData);
+			Log(endpoint, requestData, "POST");
 
 			HttpClient http = _httpClientFactory.CreateClient();
 			using (HttpResponseMessage response = await http.PostAsync(endpoint, body))
 			{
-#if DEBUG
 				requestData = await response.Content.ReadAsStringAsync();
 				WriteToDebugger(requestData, $"RESPONSE ({response.StatusCode})");
-#endif
-				_logger?.LogTrace("Received response ({1}) from 'POST: {0}'", endpoint, (int)response.StatusCode);
+				Log(endpoint, requestData, $"RESPONSE ({response.StatusCode})");
 
 				return await CreateResponse<TResponse>(response);
 			}
@@ -443,6 +441,11 @@ namespace Acklann.Plaid
 			System.Diagnostics.Debug.WriteLine(format(title));
 			System.Diagnostics.Debug.WriteLine(message);
 #endif
+		}
+
+		protected virtual void Log(string endpoint, string message, string title = "RESPONSE")
+		{
+			_logger?.LogTrace("{2}: {0}\r\n{1}", endpoint, message, title);
 		}
 
 		#endregion Backing Members
