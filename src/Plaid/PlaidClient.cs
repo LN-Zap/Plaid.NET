@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.IO;
@@ -148,6 +148,16 @@ namespace Acklann.Plaid
 		}
 
 		/// <summary>
+		/// Exchanges an access_token for an API Processor_token.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		/// <returns>Task&lt;Management.CreateProcessorTokenResponse&gt;.</returns>
+		public Task<Management.CreateProcessorTokenResponse> CreateProcessorTokenAsync(Management.CreateProcessorTokenRequest request)
+		{
+		    return PostAsync<Management.CreateProcessorTokenResponse>("processor/token/create", request);
+		}
+
+		/// <summary>
 		/// Creates a Link link_token.
 		/// </summary>
 		/// <param name="request"></param>
@@ -155,6 +165,16 @@ namespace Acklann.Plaid
 		public Task<Management.CreateLinkTokenResponse> CreateLinkToken(Management.CreateLinkTokenRequest request)
 		{
 			return PostAsync<Management.CreateLinkTokenResponse>("/link/token/create", request);
+		}
+
+		/// <summary>
+		/// Resets a Link link_token.
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		public Task<Sandbox.ResetLinkTokenResponse> ResetLinkToken(Sandbox.ResetLinkTokenRequest request)
+		{
+		    return PostAsync<Sandbox.ResetLinkTokenResponse>("/sandbox/item/reset_login", request);
 		}
 
 		/// <summary>
@@ -380,6 +400,7 @@ namespace Acklann.Plaid
 
 		private async Task<TResponse> CreateResponse<TResponse>(HttpResponseMessage response) where TResponse : ResponseBase, new()
 		{
+
 			using (Stream stream = await response.Content.ReadAsStreamAsync())
 			using (var reader = new StreamReader(stream))
 			using (var jsonReader = new JsonTextReader(reader))
@@ -387,6 +408,7 @@ namespace Acklann.Plaid
 				if (response.IsSuccessStatusCode)
 				{
 					TResponse result = _serializer.Deserialize<TResponse>(jsonReader);
+					result.RawJsonForDebugging = await response.Content.ReadAsStringAsync();
 					result.StatusCode = response.StatusCode;
 					return result;
 				}
