@@ -32,7 +32,7 @@ namespace Acklann.Plaid
 		/// Gets the http status code.
 		/// </summary>
 		/// <value>The status code.</value>
-		public HttpStatusCode StatusCode { get; internal set; }
+		public HttpStatusCode StatusCode { get; set; }
 
 		/// <summary>
 		/// Gets a value indicating whether this instance is success status code.
