@@ -13,6 +13,7 @@ namespace Acklann.Plaid.Balance
 		/// Gets or sets the options.
 		/// </summary>
 		/// <value>The options.</value>
+		[JsonProperty("options")]
 		public Settings Options { get; set; }
 
 		/// <summary>
@@ -24,6 +25,7 @@ namespace Acklann.Plaid.Balance
 			/// Gets or sets the account ids. Note: An error will be returned if a provided account_id is not associated with the <see cref="Entity.Item"/>.
 			/// </summary>
 			/// <value>The account ids.</value>
+			[JsonProperty("account_ids")]
 			public string[] AccountIds { get; set; }
 		}
 	}
