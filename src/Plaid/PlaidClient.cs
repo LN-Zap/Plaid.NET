@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Acklann.Plaid.Exceptions;
 
 namespace Acklann.Plaid
 {
@@ -412,10 +414,23 @@ namespace Acklann.Plaid
 				}
 				else
 				{
+					PlaidException plaidException;
+					try
+					{
+						plaidException = _serializer.Deserialize<PlaidException>(jsonReader);
+					}
+					catch (Exception ex)
+					{
+						plaidException = new PlaidException
+						{
+							ErrorMessage = $"Error deserializing Plaid Exception: {ex.Message}"
+						};
+					}
+
 					return new TResponse
 					{
 						StatusCode = response.StatusCode,
-						Exception = _serializer.Deserialize<Exceptions.PlaidException>(jsonReader)
+						Exception = plaidException
 					};
 				}
 			}
