@@ -99,6 +99,13 @@ namespace Acklann.Plaid.Management
         public string RedirectUri { get; set; }
 
         /// <summary>
+        /// Gets or sets the android package name.
+        /// </summary>
+        /// <value>The android package name.</value>
+        [JsonProperty("android_package_name")]
+        public string AndroidPackageName { get; set; }
+
+        /// <summary>
         /// Gets or sets the payment initiation.
         /// </summary>
         /// <value>The payment initiation.</value>
