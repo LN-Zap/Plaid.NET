@@ -20,7 +20,7 @@ namespace Acklann.Plaid
 		{
 			return JsonConvert.SerializeObject(this, new JsonSerializerSettings()
 			{
-				DateFormatString = "yyyy-MM-dd",
+				DateFormatString = "yyyy-MM-ddTHH:mm:ssZ",
 				NullValueHandling = this.NullValueHandling,
 #if DEBUG
 				Formatting = Formatting.Indented
