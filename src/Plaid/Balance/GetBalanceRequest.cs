@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Acklann.Plaid.Balance
 {
@@ -33,6 +34,7 @@ namespace Acklann.Plaid.Balance
 			/// Timestamp indicating the oldest acceptable balance.
 			/// </summary>
 			[JsonProperty("min_last_updated_datetime")]
+			[JsonConverter(typeof(IsoDateTimeConverter))]
 			public DateTimeOffset? MinLastUpdatedDatetime { get; set; }
 		}
 	}
