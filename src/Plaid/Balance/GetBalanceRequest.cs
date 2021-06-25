@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Acklann.Plaid.Balance
 {
@@ -27,6 +29,13 @@ namespace Acklann.Plaid.Balance
 			/// <value>The account ids.</value>
 			[JsonProperty("account_ids")]
 			public string[] AccountIds { get; set; }
+
+			/// <summary>
+			/// Timestamp indicating the oldest acceptable balance.
+			/// </summary>
+			[JsonProperty("min_last_updated_datetime")]
+			[JsonConverter(typeof(IsoDateTimeConverter))]
+			public DateTimeOffset? MinLastUpdatedDatetime { get; set; }
 		}
 	}
 }
