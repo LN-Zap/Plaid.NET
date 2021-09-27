@@ -418,6 +418,15 @@ namespace Acklann.Plaid
 					try
 					{
 						plaidException = _serializer.Deserialize<PlaidException>(jsonReader);
+
+						// sometimes there is no JSON data in the response but service was still down
+						// an exception must be included
+						plaidException ??= new PlaidException()
+						{
+							ErrorMessage = "Empty response",
+							ErrorCode = ErrorCode.InternalServerError,
+							ErrorType = ErrorType.ApiError
+						};
 					}
 					catch (Exception ex)
 					{
