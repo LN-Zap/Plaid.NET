@@ -156,7 +156,7 @@ namespace Acklann.Plaid
 		/// <returns>Task&lt;Management.CreateProcessorTokenResponse&gt;.</returns>
 		public Task<Management.CreateProcessorTokenResponse> CreateProcessorTokenAsync(Management.CreateProcessorTokenRequest request)
 		{
-		    return PostAsync<Management.CreateProcessorTokenResponse>("processor/token/create", request);
+		    return PostAsync<Management.CreateProcessorTokenResponse>("/processor/token/create", request);
 		}
 
 		/// <summary>
