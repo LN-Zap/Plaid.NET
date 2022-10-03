@@ -91,6 +91,12 @@ namespace Acklann.Plaid.Entity
         public StatusSchema Status { get; set; }
 
         /// <summary>
+        /// Gets or sets the list of routing numbers associated with the institution.
+        /// </summary>
+        [JsonProperty("routing_numbers")]
+        public string[] RoutingNumbers { get; set; }
+
+        /// <summary>
         /// Represents an <see cref="Institution"/> login credentials.
         /// </summary>
         public struct Credential
