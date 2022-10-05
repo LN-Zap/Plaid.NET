@@ -14,5 +14,11 @@ namespace Acklann.Plaid.Institution
         /// <value>The institutions.</value>
         [JsonProperty("institutions")]
         public Entity.Institution[] Institutions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total.
+        /// </summary>
+        [JsonProperty("total")]
+        public int Total { get; set; }
     }
 }
