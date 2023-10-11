@@ -158,7 +158,7 @@ namespace Acklann.Plaid.Management
             /// </summary>
             /// <value> If same day microdeposit are enabled.</value>
             [JsonProperty("same_day_microdeposits_enabled")]
-			public bool SameDayMicrodepositsEnabled { get; set; }
+            public bool SameDayMicrodepositsEnabled { get; set; }
         }
     }
 }
