@@ -64,6 +64,13 @@ namespace Acklann.Plaid.Entity
 		public string SubType { get; set; }
 
 		/// <summary>
+		/// Gets or sets the verification status.
+		/// </summary>
+		/// <value>The type of the verification status.</value>
+		[JsonProperty("verification_status")]
+		public string VerificationStatus { get; set; }
+
+		/// <summary>
 		/// Gets or sets the balance. The current balance is the total amount of funds in the account. The available balance is the current balance less any outstanding holds or debits that have not yet posted to the account.
 		/// </summary>
 		/// <remarks>Note: Not all institutions calculate the available balance. In the event that available balance is unavailable from the institution, Plaid will return an available balance value of <c>null</c>.</remarks>

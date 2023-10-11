@@ -64,6 +64,20 @@ namespace Acklann.Plaid.Management
         public string[] Products { get; set; }
 
         /// <summary>
+        /// List of Plaid product(s) you wish to use only if the institution and account(s) selected by the user support the product.
+        /// </summary>
+        /// <value>The required if supported products.</value>
+        [JsonProperty("required_if_supported_products")]
+        public string[] RequiredIfSupportedProducts { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auth.
+        /// </summary>
+        /// <value>The auth.</value>
+        [JsonProperty("auth")]
+        public AuthProduct Auth { get; set; }
+
+        /// <summary>
         /// Gets or sets the webhook.
         /// </summary>
         /// <value>The webhook.</value>
@@ -124,6 +138,27 @@ namespace Acklann.Plaid.Management
             /// <value>The client user id.</value>
             [JsonProperty("client_user_id")]
             public string ClientUserId { get; set; }
+        }
+
+        /// <summary>
+        /// Represents an <see cref="Entity.Auth"/> metadata.
+        /// </summary>
+        public struct AuthProduct
+        {
+            /// <summary>
+            /// Gets or sets the <see cref="Entity.Auth"/> automated microdeposits enabled
+            /// </summary>
+            /// <value> If automated microdeposit are enabled.</value>
+            [JsonProperty("automated_microdeposits_enabled")]
+            public bool AutomatedMicrodepositsEnabled { get; set; }
+
+
+            /// <summary>
+            /// Gets or sets the <see cref="Entity.Auth"/> same day microdeposits enabled
+            /// </summary>
+            /// <value> If same day microdeposit are enabled.</value>
+            [JsonProperty("same_day_microdeposits_enabled")]
+            public bool SameDayMicrodepositsEnabled { get; set; }
         }
     }
 }
