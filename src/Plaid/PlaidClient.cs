@@ -283,6 +283,16 @@ namespace Acklann.Plaid
 			return PostAsync<Auth.GetAccountInfoResponse>("/auth/get", request);
 		}
 
+		/// <summary>
+		/// Sets verification status.
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		public Task<Sandbox.SetVerificationStateResponse> SandboxSetVerificationStatus(Sandbox.SetVerificationStateRequest request)
+		{
+			return PostAsync<Sandbox.SetVerificationStateResponse>("/sandbox/item/set_verification_status", request);
+		}
+
 		/* Balance */
 
 		/// <summary>
