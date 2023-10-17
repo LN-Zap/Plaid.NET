@@ -293,6 +293,26 @@ namespace Acklann.Plaid
 			return PostAsync<Sandbox.SetVerificationStateResponse>("/sandbox/item/set_verification_status", request);
 		}
 
+		/// <summary>
+		/// Sets verification status.
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		public Task<Sandbox.SimulateResponse> SandboxSimulateBankTransfer(Sandbox.SimulateBankTransferRequest request)
+		{
+			return PostAsync<Sandbox.SimulateResponse>("/sandbox/bank_transfer/simulate", request);
+		}
+
+		/// <summary>
+		/// Sets verification status.
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		public Task<Sandbox.SimulateResponse> SandboxBankTransferFireWebhook(Sandbox.BankTransferFireWebhookRequest request)
+		{
+			return PostAsync<Sandbox.SimulateResponse>("/sandbox/bank_transfer/fire_webhook", request);
+		}
+
 		/* Balance */
 
 		/// <summary>

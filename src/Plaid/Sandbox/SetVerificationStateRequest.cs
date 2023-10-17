@@ -7,22 +7,8 @@ namespace Acklann.Plaid.Sandbox
 	/// Represents a request for plaid's '/server/sandbox_force_auto_deposit' endpoint. Forces an Auto Deposit.
 	/// </summary>
 	/// <seealso cref="Acklann.Plaid.SerializableContent" />
-	public class SetVerificationStateRequest : SerializableContent
+	public class SetVerificationStateRequest : BaseRequest
 	{
-		/// <summary>
-		/// Gets or sets the client identifier.
-		/// </summary>
-		/// <value>The client identifier.</value>
-		[JsonProperty("client_id")]
-		public string ClientId { get; set; }
-
-		/// <summary>
-		/// Gets or sets the secret.
-		/// </summary>
-		/// <value>The secret.</value>
-		[JsonProperty("secret")]
-		public string Secret { get; set; }
-
 		/// <summary>
 		/// Gets or sets the access token.
 		/// </summary>
