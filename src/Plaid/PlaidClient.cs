@@ -294,6 +294,16 @@ namespace Acklann.Plaid
 		}
 
 		/// <summary>
+		/// Get list of bank transfer events.
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		public Task<BankTransfer.BankTransferEventListResponse> BankTransferEventList(BankTransfer.BankTransferEventListRequest request)
+		{
+			return PostAsync<BankTransfer.BankTransferEventListResponse>("/bank_transfer/event/list", request);
+		}
+
+		/// <summary>
 		/// Sets verification status.
 		/// </summary>
 		/// <param name="request"></param>
