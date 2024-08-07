@@ -159,6 +159,13 @@ namespace Acklann.Plaid.Management
             /// <value> If same day microdeposit are enabled.</value>
             [JsonProperty("same_day_microdeposits_enabled")]
             public bool SameDayMicrodepositsEnabled { get; set; }
+
+            /// <summary>
+            /// Gets or sets the <see cref="Entity.Auth"/> reroute to credentials setting
+            /// </summary>
+            /// <value> Reroute to redentials configuration.</value>
+            [JsonProperty("reroute_to_credentials")]
+            public string RerouteToCredentials { get; set; }
         }
     }
 }
