@@ -93,8 +93,8 @@ namespace Acklann.Plaid.Exceptions
 		ItemNoError,
 
 		/// <summary>
-		/// Returned from <see cref="PlaidClient.FetchAccountInfoAsync(Auth.GetAccountInfoRequest)"/> 
-		/// when there are no valid checking or savings account(s) for which account and routing numbers 
+		/// Returned from <see cref="PlaidClient.FetchAccountInfoAsync(Auth.GetAccountInfoRequest)"/>
+		/// when there are no valid checking or savings account(s) for which account and routing numbers
 		/// could be retrieved.
 		/// </summary>
 		/// <remarks><see href="https://plaid.com/docs/errors/item/#no_auth_accounts-or-no-depository-accounts"/></remarks>
@@ -102,9 +102,9 @@ namespace Acklann.Plaid.Exceptions
 		NoAuthAccounts,
 
 		/// <summary>
-		/// Returned from <see cref="PlaidClient.FetchInvestmentHoldingsAsync(Investments.GetInvestmentHoldingsRequest)"/>, 
-		/// <see cref="PlaidClient.FetchInvestmentTransactionsAsync(Investments.GetInvestmentTransactionsRequest)"/>, 
-		/// or Link initialized with the Investments product, when there are no valid investment account(s) for which 
+		/// Returned from <see cref="PlaidClient.FetchInvestmentHoldingsAsync(Investments.GetInvestmentHoldingsRequest)"/>,
+		/// <see cref="PlaidClient.FetchInvestmentTransactionsAsync(Investments.GetInvestmentTransactionsRequest)"/>,
+		/// or Link initialized with the Investments product, when there are no valid investment account(s) for which
 		/// holdings or transactions could be retrieved.
 		/// </summary>
 		/// <remarks><see href="https://plaid.com/docs/errors/item/#no_investment_accounts"/></remarks>
@@ -114,7 +114,7 @@ namespace Acklann.Plaid.Exceptions
 
 		/// <summary>
 		/// Returned from <see cref="PlaidClient.FetchInvestmentHoldingsAsync(Investments.GetInvestmentHoldingsRequest)"/> or
-		/// <see cref="PlaidClient.FetchInvestmentTransactionsAsync(Investments.GetInvestmentTransactionsRequest)"/>, 
+		/// <see cref="PlaidClient.FetchInvestmentTransactionsAsync(Investments.GetInvestmentTransactionsRequest)"/>,
 		/// when there are no valid investment account(s) for which holdings or transactions could be retrieved.
 		/// </summary>
 		/// <remarks><see href="https://plaid.com/docs/errors/item/#no_investment_auth_accounts"/></remarks>
@@ -122,8 +122,8 @@ namespace Acklann.Plaid.Exceptions
 		NoInvestmentAuthAccounts,
 
 		/// <summary>
-		/// Returned when a data request has been made for an Item for a product that it does not support. 
-		/// Use the <see cref="PlaidClient.FetchItemAsync(Management.GetItemRequest)"/> API call to find 
+		/// Returned when a data request has been made for an Item for a product that it does not support.
+		/// Use the <see cref="PlaidClient.FetchItemAsync(Management.GetItemRequest)"/> API call to find
 		/// out which products an Item supports.
 		/// </summary>
 		/// <remarks><see href="https://plaid.com/docs/errors/item/#products_not_supported"/></remarks>
@@ -131,8 +131,8 @@ namespace Acklann.Plaid.Exceptions
 		ProductsNotSupported,
 
 		/// <summary>
-		/// The Item you requested cannot be found. This Item does not exist, has been previously removed via 
-		/// <see cref="PlaidClient.DeleteItemAsync(Management.DeleteItemRequest)"/>, 
+		/// The Item you requested cannot be found. This Item does not exist, has been previously removed via
+		/// <see cref="PlaidClient.DeleteItemAsync(Management.DeleteItemRequest)"/>,
 		/// or has had access removed by the user
 		/// </summary>
 		/// <remarks><see href="https://plaid.com/docs/errors/item/#item_not_found"/></remarks>
@@ -191,6 +191,31 @@ namespace Acklann.Plaid.Exceptions
 		/// <remarks><see href="https://plaid.com/docs/errors/institution/#institution_no_longer_supported"/></remarks>
 		[EnumMember(Value = "INSTITUTION_NO_LONGER_SUPPORTED")]
 		InstitutionNoLongerSupported,
+
+		/// <summary>
+		/// Institution not enabled in this environment.
+		/// </summary>
+		/// <remarks><see href="https://plaid.com/docs/errors/institution/#institution_not_enabled_in_environment"/></remarks>
+		[EnumMember(Value = "INSTITUTION_NOT_ENABLED_IN_ENVIRONMENT")]
+		InstitutionNotEnabledInEnviornment,
+
+		/// <summary>
+		/// You are not authorized to create Items for this institution at this time.
+		/// </summary>
+		/// <remarks><see href="https://plaid.com/docs/errors/institution/#unauthorized_institution"/></remarks>
+		[EnumMember(Value = "UNAUTHORIZED_INSTITUTION")]
+		UnauthorizedInstitution,
+
+		/// <summary>
+		/// Your application is not yet registered with the institution.
+		/// </summary>
+		/// <remarks><see href="https://plaid.com/docs/errors/institution/#institution_registration_required"/></remarks>
+		[EnumMember(Value = "INSTITUTION_REGISTRATION_REQUIRED")]
+		InstitutionRegistrationRequired,
+
+		[EnumMember(Value = "INSTITUTION_NOT_FOUND")]
+		InstitutionNotFound,
+
 		#endregion
 
 		#region INVALID_REQUEST Codes
@@ -469,6 +494,10 @@ namespace Acklann.Plaid.Exceptions
 		/// <remarks><see href="https://plaid.com/docs/errors/oauth/#oauth_state_id_already_processed"/></remarks>
 		[EnumMember(Value = "OAUTH_STATE_ID_ALREADY_PROCESSED")]
 		OauthStateIdAlreadyProcessed,
+
+		[EnumMember(Value = "UNSUPPORTED_RESPONSE")]
+		UnsupportedResponse,
+
 		#endregion
 
 		#region SANDBOX_ERROR Codes
