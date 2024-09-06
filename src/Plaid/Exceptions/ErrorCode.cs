@@ -500,6 +500,17 @@ namespace Acklann.Plaid.Exceptions
 
 		#endregion
 
+		#region MICRODEPOSIT Codes
+
+		/// <summary>
+		/// The bank transfer could not be completed because a previous transfer involving the same end-user account resulted in an error.
+		/// </summary>
+		/// <remarks><see href="https://plaid.com/docs/errors/microdeposits/#bank_transfer_account_blocked"/></remarks>
+		[EnumMember(Value = "BANK_TRANSFER_ACCOUNT_BLOCKED")]
+		BankTransferAccountBlocked,
+
+		#endregion
+
 		#region SANDBOX_ERROR Codes
 		/// <summary>
 		/// The requested product is not enabled for an Item
