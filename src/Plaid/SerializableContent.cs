@@ -7,10 +7,30 @@ namespace Acklann.Plaid
 	/// </summary>
 	public abstract class SerializableContent
 	{
+		private static readonly JsonSerializerSettings _ignoreNullSerializerSettings = new JsonSerializerSettings() {
+			DateFormatString = "yyyy-MM-dd",
+			NullValueHandling = NullValueHandling.Ignore,
+#if DEBUG
+			Formatting = Formatting.Indented
+#else
+			Formatting = Formatting.None
+#endif
+		};
+
+		private static readonly JsonSerializerSettings _includeNullSerializerSettings = new JsonSerializerSettings() {
+			DateFormatString = "yyyy-MM-dd",
+			NullValueHandling = NullValueHandling.Include,
+#if DEBUG
+			Formatting = Formatting.Indented
+#else
+			Formatting = Formatting.None
+#endif
+		};
+
 		/// <summary>
 		/// The null value handling.
 		/// </summary>
-		protected NullValueHandling NullValueHandling = NullValueHandling.Ignore;
+		protected bool HandleNullValue = false;
 
 		/// <summary>
 		/// Returns a string that represents the current object in JSON format.
@@ -18,16 +38,7 @@ namespace Acklann.Plaid
 		/// <returns>System.String.</returns>
 		public virtual string ToJson()
 		{
-			return JsonConvert.SerializeObject(this, new JsonSerializerSettings()
-			{
-				DateFormatString = "yyyy-MM-dd",
-				NullValueHandling = this.NullValueHandling,
-#if DEBUG
-				Formatting = Formatting.Indented
-#else
-                Formatting = Formatting.None
-#endif
-			});
+			return JsonConvert.SerializeObject(this, HandleNullValue ? _ignoreNullSerializerSettings : _includeNullSerializerSettings);
 		}
 	}
 }

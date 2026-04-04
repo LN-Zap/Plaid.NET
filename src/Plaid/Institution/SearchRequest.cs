@@ -13,7 +13,7 @@ namespace Acklann.Plaid.Institution
 		/// </summary>
 		public SearchRequest()
 		{
-			NullValueHandling = NullValueHandling.Include;
+			HandleNullValue = true;
 			Options = new AdditionalOptions();
 		}
 
