@@ -80,5 +80,8 @@ namespace Acklann.Plaid.Entity
 
 		[JsonProperty("owners")]
 		public Owner[] Owners { get; set; }
+
+		[JsonProperty("persistent_account_id")]
+		public string PersistentAccountId { get; set; }
 	}
 }
